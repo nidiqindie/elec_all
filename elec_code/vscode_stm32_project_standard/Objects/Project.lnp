@@ -40,6 +40,8 @@
 ".\objects\mpu6050_i2c.o"
 ".\objects\myi2c.o"
 ".\objects\wit_c_sdk.o"
+".\objects\emm_v5.o"
+".\objects\fifo.o"
 --library_type=microlib --strict --scatter ".\Objects\Project.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

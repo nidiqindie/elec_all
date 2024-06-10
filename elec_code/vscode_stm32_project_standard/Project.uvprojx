@@ -818,6 +818,26 @@
               <FileType>5</FileType>
               <FilePath>.\User\jy901s\REG.h</FilePath>
             </File>
+            <File>
+              <FileName>Emm_V5.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\motor\Emm_V5.c</FilePath>
+            </File>
+            <File>
+              <FileName>Emm_V5.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\motor\Emm_V5.h</FilePath>
+            </File>
+            <File>
+              <FileName>fifo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\motor\fifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>fifo.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\motor\fifo.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

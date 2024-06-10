@@ -12,8 +12,8 @@
 
 // #define Enable_IRQ_UART4_RX        1
 
-extern uint8_t fc_recv_buff[];
 extern uint8_t nano_recv_buff[];
+extern uint8_t fc_recv_buff[];
 extern uint8_t yaw_recv_buff[];
 
 extern uint8_t flag_seq_screen;
@@ -114,9 +114,10 @@ extern uint8_t flag_seq_screen;
 
 void USART1_Config(void);
 void USART2_Config(void);
+void Usart2Init(int uiBaud);
 void Usart4Init(int uibaud);
 void USART3_Config(void);
-void UART4_Config(void);
+void UART4_Config(int baud);
 void Usart4Init(int baud);
 void UART5_Config(void);
 void Usart_SendByte( USART_TypeDef * pUSARTx, uint8_t ch);
@@ -124,7 +125,11 @@ void Usart_SendString( USART_TypeDef * pUSARTx, char *str);
 void Usart_SendHalfWord( USART_TypeDef * pUSARTx, uint16_t ch);
 void Usart_SendArray(USART_TypeDef *pUSARTx, uint8_t *array, uint16_t num);
 
-
 void Uart2Send(unsigned char *p_data, unsigned int uiSize);
+void Uart4Send(unsigned char *p_data, unsigned int uiSize);
+
+
+void usart_SendByte(uint16_t data);
+void usart_SendCmd(__IO uint8_t *cmd, uint8_t len);
 
 #endif /* __USART_H */

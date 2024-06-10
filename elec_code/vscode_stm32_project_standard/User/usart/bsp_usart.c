@@ -4,11 +4,15 @@
 #include "bsp_delay.h"
 #include "misc.h"
 #include "wit_c_sdk.h"
-
+#include "fifo.h"
 
 #define Enable_IRQ_USERT1_RX
 #define Enable_IRQ_USERT3_RX
 #define Enable_IRQ_UART4_RX
+__IO bool rxFrameFlag         = false;
+__IO uint8_t rxCmd[FIFO_SIZE] = {0};
+__IO uint8_t rxCount          = 0;
+
 static void NVIC_USART1_Configuration(void)
 {
   NVIC_InitTypeDef NVIC_InitStructure;
@@ -81,7 +85,7 @@ static void NVIC_UART4_Configuration()
  /* �������ȼ�*/
  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
  /* �����ȼ� */
- NVIC_InitStructure.NVIC_IRQChannelSubPriority = 8;
+ NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;
  /* ʹ���ж� */
  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
  /* ��ʼ������NVIC */
@@ -237,7 +241,16 @@ void Usart2Init(int uiBaud)
     NVIC_InitStructure.NVIC_IRQChannelCmd                = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 }
-
+void Uart2Send(unsigned char *p_data, unsigned int uiSize)
+{
+	unsigned int i;
+	for(i = 0; i < uiSize; i++)
+	{
+		while(USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET);
+		USART_SendData(USART2,*p_data++);		
+	}
+	while(USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);
+}
 
 void USART3_Config(void)
 {
@@ -287,7 +300,7 @@ void USART3_Config(void)
 	// ʹ�ܴ���
 	USART_Cmd(DEBUG_USART3, ENABLE);	    
 }
-void UART4_Config(void)
+void UART4_Config(int baud)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	USART_InitTypeDef USART_InitStructure;
@@ -311,7 +324,7 @@ void UART4_Config(void)
 	
 	// ���ô��ڵĹ�������
 	// ���ò�����
-	USART_InitStructure.USART_BaudRate = DEBUG_UART4_BAUDRATE;
+	USART_InitStructure.USART_BaudRate = baud ;
 	// ���� �������ֳ�
 	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
 	// ����ֹͣλ
@@ -338,17 +351,17 @@ void UART4_Config(void)
 }
 void Usart4Init(int baud)
 {
-    UART4_Config();
+    UART4_Config(9600);
     USART_InitTypeDef USART_InitStructure;
-	USART_Cmd(USART2, DISABLE);
+	USART_Cmd(UART4, DISABLE);
 	USART_InitStructure.USART_BaudRate =baud;
 	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
 	USART_InitStructure.USART_StopBits = USART_StopBits_1;
 	USART_InitStructure.USART_Parity = USART_Parity_No;
 	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
 	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
-	USART_Init(USART2, &USART_InitStructure);
-	USART_Cmd(USART2, ENABLE);
+	USART_Init(UART4, &USART_InitStructure);
+	USART_Cmd(UART4, ENABLE);
 
 }
 void UART5_Config(void)
@@ -501,13 +514,34 @@ int fgetc(FILE *f)
 // ����1�жϷ�����
 void DEBUG_USART1_IRQHandler(void)
 {
-  uint8_t ucTemp;
-	if(USART_GetITStatus(DEBUG_USART1,USART_IT_RXNE)!=RESET)
-	{		
-		ucTemp = USART_ReceiveData(DEBUG_USART1);
-		
-    USART_SendData(DEBUG_USART1,ucTemp);    
-	}	 
+  __IO uint16_t i = 0;
+
+/**********************************************************
+***	????????��?
+**********************************************************/
+	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
+	{
+		// ��?????????????????????????
+		fifo_enQueue((uint8_t)USART1->DR);
+
+		// ???????????��??
+		USART_ClearITPendingBit(USART1, USART_IT_RXNE);
+	}
+
+/**********************************************************
+***	????????��?
+**********************************************************/
+	else if(USART_GetITStatus(USART1, USART_IT_IDLE) != RESET)
+	{
+		// ???SR???DR?????IDLE?��?
+		USART1->SR; USART1->DR;
+
+		// ?????????????
+		rxCount = fifo_queueLength(); for(i=0; i < rxCount; i++) { rxCmd[i] = fifo_deQueue(); }
+
+		// ???????????????��??????
+		rxFrameFlag = true;
+	}
 }
 
 // 串口二中断（jy901s的串口中断执行程序）
@@ -521,7 +555,7 @@ void DEBUG_USART2_IRQHandler(void)
 		USART_ClearITPendingBit(USART2, USART_IT_RXNE);
 	}
 }
-void Uart2Send(unsigned char *p_data, unsigned int uiSize)
+void Uart4Send(unsigned char *p_data, unsigned int uiSize)
 {	
 	unsigned int i;
 	for(i = 0; i < uiSize; i++)
@@ -539,15 +573,7 @@ void DEBUG_USART3_IRQHandler(void)
 	if(USART_GetITStatus(DEBUG_USART3,USART_IT_RXNE)!=RESET)
 	{		
 		ucTemp = USART_ReceiveData(DEBUG_USART3);
-        if (ucTemp == '1') {
-            while (1) {
-
-        delay_ms(50);
-	printf("nihao\n");
-				
-			}
-			
-		}
+    
 		  
    USART_SendData(DEBUG_USART3,ucTemp);    
 	}	 
@@ -562,8 +588,8 @@ void DEBUG_UART4_IRQHandler(void)
 	{		
 		
 		ucTemp = USART_ReceiveData(DEBUG_UART4);
-
-    USART_SendData(DEBUG_UART4,ucTemp);    
+		WitSerialDataIn(ucTemp);
+  	USART_ClearITPendingBit(UART4, USART_IT_RXNE);  
 	}	 
 }
 
@@ -577,7 +603,27 @@ void DEBUG_UART5_IRQHandler(void)
 	
 		}    
 	}	 
+void usart_SendCmd(__IO uint8_t *cmd, uint8_t len)
+{
+	__IO uint8_t i = 0;
+	
+	for(i=0; i < len; i++) { usart_SendByte(cmd[i]); }
+}
+/**
+	* @brief   USART����һ���ֽ�
+	* @param   ��
+	* @retval  ��
+	*/
+void usart_SendByte(uint16_t data)
+{
+	__IO uint16_t t0 = 0;
+	
+	USART1->DR = (data & (uint16_t)0x01FF);
 
-
+	while(!(USART1->SR & USART_FLAG_TXE))
+	{
+		++t0; if(t0 > 8000)	{	return; }
+	}
+}
 
 

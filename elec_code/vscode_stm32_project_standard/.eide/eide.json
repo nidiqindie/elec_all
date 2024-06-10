@@ -10,6 +10,30 @@
     "files": [],
     "folders": [
       {
+        "name": "Start",
+        "files": [
+          {
+            "path": "Start/startup_stm32f10x_md.s"
+          },
+          {
+            "path": "Start/core_cm3.c"
+          },
+          {
+            "path": "Start/core_cm3.h"
+          },
+          {
+            "path": "Start/stm32f10x.h"
+          },
+          {
+            "path": "Start/system_stm32f10x.c"
+          },
+          {
+            "path": "Start/system_stm32f10x.h"
+          }
+        ],
+        "folders": []
+      },
+      {
         "name": "Library",
         "files": [
           {
@@ -154,30 +178,6 @@
         "folders": []
       },
       {
-        "name": "Start",
-        "files": [
-          {
-            "path": "Start/startup_stm32f10x_md.s"
-          },
-          {
-            "path": "Start/core_cm3.c"
-          },
-          {
-            "path": "Start/core_cm3.h"
-          },
-          {
-            "path": "Start/stm32f10x.h"
-          },
-          {
-            "path": "Start/system_stm32f10x.c"
-          },
-          {
-            "path": "Start/system_stm32f10x.h"
-          }
-        ],
-        "folders": []
-      },
-      {
         "name": "System",
         "files": [],
         "folders": []
@@ -186,88 +186,7 @@
         "name": "User",
         "files": [
           {
-            "path": "System/sys.c"
-          },
-          {
-            "path": "System/sys.h"
-          },
-          {
-            "path": "User/delay/bsp_delay.c"
-          },
-          {
-            "path": "User/delay/bsp_delay.h"
-          },
-          {
-            "path": "User/delay/bsp_SysTick.c"
-          },
-          {
-            "path": "User/delay/bsp_SysTick.h"
-          },
-          {
-            "path": "User/i2c/MyI2C.c"
-          },
-          {
-            "path": "User/i2c/MyI2C.h"
-          },
-          {
-            "path": "User/jy901s/REG.h"
-          },
-          {
-            "path": "User/jy901s/wit_c_sdk.c"
-          },
-          {
-            "path": "User/jy901s/wit_c_sdk.h"
-          },
-          {
-            "path": "User/Key/bsp_exti.c"
-          },
-          {
-            "path": "User/Key/bsp_exti.h"
-          },
-          {
-            "path": "User/Key/bsp_key.c"
-          },
-          {
-            "path": "User/Key/bsp_key.h"
-          },
-          {
-            "path": "User/Led/bsp_led.c"
-          },
-          {
-            "path": "User/Led/bsp_led.h"
-          },
-          {
             "path": "User/main.c"
-          },
-          {
-            "path": "User/mpu6050/dmpKey.h"
-          },
-          {
-            "path": "User/mpu6050/dmpmap.h"
-          },
-          {
-            "path": "User/mpu6050/inv_mpu_dmp_motion_driver.c"
-          },
-          {
-            "path": "User/mpu6050/inv_mpu_dmp_motion_driver.h"
-          },
-          {
-            "path": "User/mpu6050/inv_mpu.c"
-          },
-          {
-            "path": "User/mpu6050/inv_mpu.h"
-          },
-          {
-            "path": "User/mpu6050/MPU6050_I2C.c"
-          },
-          {
-            "path": "User/mpu6050/MPU6050_I2C.h"
-          },
-          {
-            "path": "User/mpu6050/mpu6050.c"
-          },
-          {
-            "path": "User/mpu6050/mpu6050.h"
           },
           {
             "path": "User/stm32f10x_conf.h"
@@ -279,10 +198,97 @@
             "path": "User/stm32f10x_it.h"
           },
           {
+            "path": "User/delay/bsp_delay.c"
+          },
+          {
+            "path": "User/delay/bsp_SysTick.c"
+          },
+          {
+            "path": "User/Key/bsp_exti.c"
+          },
+          {
+            "path": "User/Key/bsp_key.c"
+          },
+          {
+            "path": "User/Led/bsp_led.c"
+          },
+          {
+            "path": "User/Key/bsp_exti.h"
+          },
+          {
+            "path": "User/Key/bsp_key.h"
+          },
+          {
+            "path": "User/delay/bsp_delay.h"
+          },
+          {
+            "path": "User/delay/bsp_SysTick.h"
+          },
+          {
+            "path": "User/Led/bsp_led.h"
+          },
+          {
             "path": "User/usart/bsp_usart.c"
           },
           {
             "path": "User/usart/bsp_usart.h"
+          },
+          {
+            "path": "User/mpu6050/mpu6050.c"
+          },
+          {
+            "path": "User/mpu6050/mpu6050.h"
+          },
+          {
+            "path": "System/sys.c"
+          },
+          {
+            "path": "System/sys.h"
+          },
+          {
+            "path": "User/mpu6050/dmpKey.h"
+          },
+          {
+            "path": "User/mpu6050/dmpmap.h"
+          },
+          {
+            "path": "User/mpu6050/inv_mpu.c"
+          },
+          {
+            "path": "User/mpu6050/inv_mpu.h"
+          },
+          {
+            "path": "User/mpu6050/inv_mpu_dmp_motion_driver.c"
+          },
+          {
+            "path": "User/mpu6050/inv_mpu_dmp_motion_driver.h"
+          },
+          {
+            "path": "User/mpu6050/MPU6050_I2C.c"
+          },
+          {
+            "path": "User/mpu6050/MPU6050_I2C.h"
+          },
+          {
+            "path": "User/i2c/MyI2C.c"
+          },
+          {
+            "path": "User/i2c/MyI2C.h"
+          },
+          {
+            "path": "User/jy901s/wit_c_sdk.c"
+          },
+          {
+            "path": "User/jy901s/wit_c_sdk.h"
+          },
+          {
+            "path": "User/jy901s/REG.h"
+          },
+          {
+            "path": "User/motor/Emm_V5.c"
+          },
+          {
+            "path": "User/motor/Emm_V5.h"
           }
         ],
         "folders": []

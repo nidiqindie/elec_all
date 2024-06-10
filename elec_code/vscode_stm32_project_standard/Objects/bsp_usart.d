@@ -35,3 +35,5 @@
 .\objects\bsp_usart.o: .\User\jy901s\wit_c_sdk.h
 .\objects\bsp_usart.o: D:\keil 5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\bsp_usart.o: .\User\jy901s\REG.h
+.\objects\bsp_usart.o: .\User\motor\fifo.h
+.\objects\bsp_usart.o: D:\keil 5\ARM\ARMCC\Bin\..\include\stdbool.h

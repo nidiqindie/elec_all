@@ -39,7 +39,7 @@ static void AutoScanSensor(void);
 static void SensorUartSend(uint8_t *p_data, uint32_t uiSize);
 static void SensorDataUpdata(uint32_t uiReg, uint32_t uiRegNum);
 static void Delayms(uint16_t ucMs);
-#define bound 9600
+
 int main(void)
 {
 	float fAcc[3], fGyro[3], fAngle[3];
@@ -54,7 +54,6 @@ int main(void)
 	WitRegisterCallBack(SensorDataUpdata);
 	WitDelayMsRegister(Delayms);
 	printf("\r\n********************** wit-motion normal example  ************************\r\n");
-	delay_ms(100);
 	AutoScanSensor();
 	while (1)
 	{
@@ -244,7 +243,7 @@ static void AutoScanSensor(void)
 	
 	for(i = 1; i < 10; i++)
 	{
-		Usart2Init(bound);
+		Usart2Init(c_uiBaud[i]);
 		iRetry = 2;
 		do
 		{

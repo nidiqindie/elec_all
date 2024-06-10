@@ -8,6 +8,8 @@
 #include "bsp_led.h"
 #include "bsp_delay.h"
 #include "inv_mpu.h"
+#include "Emm_V5.h"
+
 // 用mpu6050的时候的一些宏定义,用的时候解除注释就行
 // #include "mpu6050.h"
 //  float Pitch,Roll,Yaw;								//俯仰角默认跟中值一样，翻滚角，偏航角
@@ -36,29 +38,51 @@ static void Delayms(uint16_t ucMs)
 }
 #define bound 9600 
 
-#define  use_uart_to_pc
+//#define  use_uart_to_pc
+#define use_jy901s
 
 int main(void)
 {
-	delay_init();
+    //禁用jtag接口，把这些接口开放出去。
+    GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);
+    //初始化四个长大头步进电机的通讯串口这里为串口1.
+    USART1_Config();
+	delay_ms(2000);
+
+Emm_V5_En_Control(5,1,0);
+delay_ms(1);
+
+Emm_V5_En_Control(2,1,0);
+delay_ms(1);
+
+Emm_V5_En_Control(3,1,0);
+delay_ms(1);
+
+Emm_V5_En_Control(4,1,0);
+delay_ms(1);
+    //滴答计时器的初始化用于延时
+    delay_init();
+    //调试串口初始化，这里为串口5
     UART5_Config();
+    //rgb灯的gpio初始化
     LED_GPIO_Config();
-    // 用mpu6050的时候用这些
-    //  MPU6050_Init();
-    //  MPU6050_DMP_Init();
-    #ifdef use_uart_to_pc
+	// 用mpu6050的时候用这些
+	//  MPU6050_Init();
+	//  MPU6050_DMP_Init();
+	// 测试调试串口是否可以和电脑正常通讯。需要测试就定义use_uart_to_pc这个字符串
+	#ifdef use_uart_to_pc
 	
     while (1) {
     GPIO_ResetBits(LEDR_GPIO_PORT,LEDR_GPIO_PIN);
         delay_ms(100);
         printf("nihao\n");
 
-}
+	}
 	#endif // DEBUG
     // 使用jy901s，定义一个字符串use_jy901s即可使用
     // 初始化读数据的串口，这里原理图分配的是串口四
    #ifdef use_jy901s
-    UART4_Config();
+	Usart2Init(9600);
     float fAcc[3], fGyro[3], fAngle[3];
     int i;
     WitInit(WIT_PROTOCOL_NORMAL, 0x50);
@@ -67,7 +91,7 @@ int main(void)
 	WitDelayMsRegister(Delayms);
 	printf("\r\n********************** wit-motion normal example  ************************\r\n");
     AutoScanSensor();
-    
+	
 	while (1)
 	{
       CmdProcess();
@@ -75,23 +99,24 @@ int main(void)
 		{
 			for(i = 0; i < 3; i++)
 			{
-				fAcc[i] = sReg[AX+i] / 32768.0f * 16.0f;
-				fGyro[i] = sReg[GX+i] / 32768.0f * 2000.0f;
+				// fAcc[i] = sReg[AX+i] / 32768.0f * 16.0f;
+				// fGyro[i] = sReg[GX+i] / 32768.0f * 2000.0f;
 				fAngle[i] = sReg[Roll+i] / 32768.0f * 180.0f;
 			}
-			if(s_cDataUpdate & ACC_UPDATE)
-			{
-				printf("acc:%.3f %.3f %.3f\r\n", fAcc[0], fAcc[1], fAcc[2]);
-				s_cDataUpdate &= ~ACC_UPDATE;
-			}
-			if(s_cDataUpdate & GYRO_UPDATE)
-			{
-				printf("gyro:%.3f %.3f %.3f\r\n", fGyro[0], fGyro[1], fGyro[2]);
-				s_cDataUpdate &= ~GYRO_UPDATE;
-			}
+            // if(s_cDataUpdate & ACC_UPDATE)
+            // {
+            // 	printf("acc:%.3f %.3f %.3f\r\n", fAcc[0], fAcc[1], fAcc[2]);
+            // 	s_cDataUpdate &= ~ACC_UPDATE;
+            // }
+            // if(s_cDataUpdate & GYRO_UPDATE)
+            // {
+            // 	printf("gyro:%.3f %.3f %.3f\r\n", fGyro[0], fGyro[1], fGyro[2]);
+            // 	s_cDataUpdate &= ~GYRO_UPDATE;
+            // }
+            Delayms(1000);
 			if(s_cDataUpdate & ANGLE_UPDATE)
-			{
-				printf("angle:%.3f %.3f %.3f\r\n", fAngle[0], fAngle[1], fAngle[2]);
+			{// fAngle[1], fAngle[2]
+				printf("angle:%.3f\r\n", fAngle[0]);
 				s_cDataUpdate &= ~ANGLE_UPDATE;
 			}
 	    }
@@ -172,13 +197,13 @@ static void CmdProcess(void)
 			if(WitSetUartBaud(WIT_BAUD_115200) != WIT_HAL_OK) 
 				printf("\r\nSet Baud Error\r\n");
 			else 
-				Usart4Init(c_uiBaud[WIT_BAUD_115200]);											
+				Usart2Init(c_uiBaud[WIT_BAUD_115200]);											
 			break;
 		case 'b':	
 			if(WitSetUartBaud(WIT_BAUD_9600) != WIT_HAL_OK)
 				printf("\r\nSet Baud Error\r\n");
 			else 
-				Usart4Init(c_uiBaud[WIT_BAUD_9600]);												
+				Usart2Init(c_uiBaud[WIT_BAUD_9600]);												
 			break;
 		case 'R':	
 			if(WitSetOutputRate(RRATE_10HZ) != WIT_HAL_OK) 
@@ -251,7 +276,7 @@ static void AutoScanSensor(void)
 	
 	for(i = 1; i < 10; i++)
 	{
-		Usart4Init(bound);
+		Usart2Init(9600);
 		iRetry = 2;
 		do
 		{
