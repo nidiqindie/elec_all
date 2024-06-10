@@ -9,6 +9,7 @@
 #include "bsp_delay.h"
 #include "inv_mpu.h"
 #include "Emm_V5.h"
+#include "bsp_motor.h"
 
 // 用mpu6050的时候的一些宏定义,用的时候解除注释就行
 // #include "mpu6050.h"
@@ -38,47 +39,49 @@ static void Delayms(uint16_t ucMs)
 }
 #define bound 9600 
 
-//#define  use_uart_to_pc
-#define use_jy901s
+#define  use_uart_to_pc
+// #define use_jy901s
 
 int main(void)
 {
     //禁用jtag接口，把这些接口开放出去。
     GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);
-    //初始化四个长大头步进电机的通讯串口这里为串口1.
-    USART1_Config();
-	delay_ms(2000);
-
-Emm_V5_En_Control(5,1,0);
-delay_ms(1);
-
-Emm_V5_En_Control(2,1,0);
-delay_ms(1);
-
-Emm_V5_En_Control(3,1,0);
-delay_ms(1);
-
-Emm_V5_En_Control(4,1,0);
-delay_ms(1);
+   
     //滴答计时器的初始化用于延时
     delay_init();
     //调试串口初始化，这里为串口5
     UART5_Config();
     //rgb灯的gpio初始化
     LED_GPIO_Config();
-	// 用mpu6050的时候用这些
+    
+    // 初始化四个长大头步进电机的通讯串口这里为串口1.
+    USART1_Config();
+    delay_ms(100);
+
+    Emm_V5_En_Control(1, 1, 0);
+    delay_ms(1);
+
+    Emm_V5_En_Control(2, 1, 0);
+    delay_ms(1);
+
+    Emm_V5_En_Control(3, 1, 0);
+    delay_ms(1);
+
+    Emm_V5_En_Control(4, 1, 0);
+    delay_ms(1);
+   Delayms(1000);
+   
+    // 用mpu6050的时候用这些
 	//  MPU6050_Init();
 	//  MPU6050_DMP_Init();
 	// 测试调试串口是否可以和电脑正常通讯。需要测试就定义use_uart_to_pc这个字符串
-	#ifdef use_uart_to_pc
-	
-    while (1) {
-    GPIO_ResetBits(LEDR_GPIO_PORT,LEDR_GPIO_PIN);
-        delay_ms(100);
-        printf("nihao\n");
+	// #ifdef use_uart_to_pc
 
-	}
-	#endif // DEBUG
+    move_forward(100, 20, 4);
+    while (1) {
+
+    }
+	// #endif // DEBUG
     // 使用jy901s，定义一个字符串use_jy901s即可使用
     // 初始化读数据的串口，这里原理图分配的是串口四
    #ifdef use_jy901s
@@ -91,9 +94,9 @@ delay_ms(1);
 	WitDelayMsRegister(Delayms);
 	printf("\r\n********************** wit-motion normal example  ************************\r\n");
     AutoScanSensor();
-	
-	while (1)
-	{
+    
+    while (1)
+    {
       CmdProcess();
 		if(s_cDataUpdate)
 		{

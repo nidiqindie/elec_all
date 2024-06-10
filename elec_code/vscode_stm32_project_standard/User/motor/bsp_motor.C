@@ -6,10 +6,10 @@
 #include "Emm_V5.h"
  #include <stdbool.h>
 #include "bsp_delay.h"
-#include "JY61P.h"
-#include "Serial.h"
-#include "servo.h"
-#include "Serial_k210.h"
+
+//#include "Serial.h"
+////#include "servo.h"
+//#include "Serial_k210.h"
 //运动控制函数，speed范围在0到5000，j表示加速度
 //角度环pid
 /*偏航角PID参数定义*/
@@ -103,7 +103,7 @@ cw_5=1;
 cw_2=1;
 cw_3=0;
 cw_4=0;
-Emm_V5_Pos_Control(5, 1, speed-1, j, (int)(3200*quan), 0, 0);
+Emm_V5_Pos_Control(1, 1, speed-1, j, (int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
 Emm_V5_Pos_Control(2, 1, speed-1, j, (int)(3200*quan), 0, 0);
@@ -127,7 +127,7 @@ cw_5=0;
 cw_2=0;
 cw_3=1;
 cw_4=1;
-Emm_V5_Pos_Control(5, 0, speed-1, j,(int)(3200*quan), 0, 0);
+Emm_V5_Pos_Control(1, 0, speed-1, j,(int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
 Emm_V5_Pos_Control(2, 0, speed-1, j, (int)(3200*quan), 0, 0);
@@ -148,7 +148,7 @@ cw_5=1;
 cw_2=1;
 cw_3=0;
 cw_4=0;
-Emm_V5_Pos_Control(5, 1, speed-1, j, (int)(3200*quan), 1, 0);
+Emm_V5_Pos_Control(1, 1, speed-1, j, (int)(3200*quan), 1, 0);
 	 delay_ms(1);
 	
 Emm_V5_Pos_Control(2, 1, speed-1, j, (int)(3200*quan), 1, 0);
@@ -170,7 +170,7 @@ cw_5=0;
 cw_2=0;
 cw_3=1;
 cw_4=1;
-Emm_V5_Pos_Control(5, 0, speed-1, j,(int)(3200*quan), 1, 0);
+Emm_V5_Pos_Control(1, 0, speed-1, j,(int)(3200*quan), 1, 0);
 	 delay_ms(1);
 	
 Emm_V5_Pos_Control(2, 0, speed-1, j, (int)(3200*quan),1, 0);
@@ -209,7 +209,7 @@ cw_5=1;
 cw_2=0;
 cw_3=1;
 cw_4=0;
-Emm_V5_Pos_Control(5, 1, speed, j, (int)(3200*quan), 0, 0);
+Emm_V5_Pos_Control(1, 1, speed, j, (int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
 Emm_V5_Pos_Control(2, 0, speed-1, j, (int)(3200*quan), 0, 0);
@@ -231,7 +231,7 @@ cw_2=1;
 cw_3=0;
 cw_4=1;
 
-Emm_V5_Pos_Control(5, 0, speed, j, (int)(3200*quan), 0, 0);
+Emm_V5_Pos_Control(1, 0, speed, j, (int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
 Emm_V5_Pos_Control(2, 1, speed-1, j, (int)(3200*quan), 0, 0);
@@ -256,7 +256,7 @@ void stop(void)
 void L_R(int speed , int j)  //左自转
 {
 
-Emm_V5_Vel_Control(5, 1, speed-2, j, 0);
+Emm_V5_Vel_Control(1, 1, speed-2, j, 0);
 	 delay_ms(1);
 	
 Emm_V5_Vel_Control(2, 1, speed-1, j,  0);
@@ -274,7 +274,7 @@ Emm_V5_Vel_Control(4, 1, speed+1, j,  0);
 
 void R_R(int speed , int j) //右自转
 {
-Emm_V5_Vel_Control(5, 0, speed-2, j, 0);
+Emm_V5_Vel_Control(1, 0, speed-2, j, 0);
 	 delay_ms(1);
 	
 Emm_V5_Vel_Control(2, 0, speed-1, j,  0);
@@ -290,7 +290,7 @@ Emm_V5_Vel_Control(4, 0, speed+1, j,  0);
 
 void Backward(int speeed)
 {
-	Emm_V5_Vel_Control(5, 0,speeed, 1, 0);
+	Emm_V5_Vel_Control(1, 0,speeed, 1, 0);
 	 delay_ms(1);
 	
 Emm_V5_Vel_Control(2, 0, speeed, 1,  0);
@@ -304,7 +304,7 @@ Emm_V5_Vel_Control(4, 1, speeed, 1,  0);
 }
 
 void Forward(int speeed)
-{	Emm_V5_Vel_Control(5, 1,speeed, 1, 0);
+{	Emm_V5_Vel_Control(1, 1,speeed, 1, 0);
 	 delay_ms(1);
 	
 Emm_V5_Vel_Control(2, 1, speeed, 1,  0);
@@ -321,7 +321,7 @@ Emm_V5_Vel_Control(4, 0, speeed, 1,  0);
 void R_Translation(int speeed)
 {
 
-	Emm_V5_Vel_Control(5, 0,speeed, 1, 0);
+	Emm_V5_Vel_Control(1, 0,speeed, 1, 0);
 	 delay_ms(1);
 	
 Emm_V5_Vel_Control(2, 1, speeed, 1,  0);
@@ -339,7 +339,7 @@ Emm_V5_Vel_Control(4, 1, speeed, 1,  0);
 void L_Translation(int speeed)
 {
 
-	Emm_V5_Vel_Control(5, 1,speeed, 1, 0);
+	Emm_V5_Vel_Control(1, 1,speeed, 1, 0);
 	 delay_ms(1);
 	
 Emm_V5_Vel_Control(2, 0, speeed, 1,  0);

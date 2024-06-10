@@ -29,7 +29,7 @@ extern uint8_t flag_seq_screen;
 #define  DEBUG_USART1                    USART1
 #define  DEBUG_USART1_CLK                RCC_APB2Periph_USART1
 #define  DEBUG_USART1_APBxClkCmd         RCC_APB2PeriphClockCmd
-#define  DEBUG_USART1_BAUDRATE           9600
+#define  DEBUG_USART1_BAUDRATE           115200
 
 #define  DEBUG_USART1_GPIO_CLK           (RCC_APB2Periph_GPIOA)
 #define  DEBUG_USART1_GPIO_APBxClkCmd    RCC_APB2PeriphClockCmd

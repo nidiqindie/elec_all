@@ -838,6 +838,16 @@
               <FileType>5</FileType>
               <FilePath>.\User\motor\fifo.h</FilePath>
             </File>
+            <File>
+              <FileName>bsp_motor.C</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\motor\bsp_motor.C</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\motor\bsp_motor.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

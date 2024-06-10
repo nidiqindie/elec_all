@@ -748,7 +748,7 @@ I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 F (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)()
-F (.\User\main.c)(0x6666C51B)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\User\delay -I .\User\Key -I .\User\Led -I .\User\motor -I .\User\usart -I .\User\mpu6050 -I .\User\i2c -I .\User\jy901s-I.\RTE\_Target_1-I"D:\keil 5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-I"D:\keil 5\ARM\CMSIS\Include"-D__UVISION_VERSION="524" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\User\main.c)(0x6666E265)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\User\delay -I .\User\Key -I .\User\Led -I .\User\motor -I .\User\usart -I .\User\mpu6050 -I .\User\i2c -I .\User\jy901s-I.\RTE\_Target_1-I"D:\keil 5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-I"D:\keil 5\ARM\CMSIS\Include"-D__UVISION_VERSION="524" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (.\Start\stm32f10x.h)(0x660F6680)
 I (.\Start\core_cm3.h)(0x4D523B58)
 I (D:\keil 5\ARM\ARMCC\include\stdint.h)(0x588B8344)
@@ -788,6 +788,7 @@ I (.\User\delay\bsp_delay.h)(0x6613C55F)
 I (.\User\mpu6050\inv_mpu.h)(0x6613B4FA)
 I (.\User\motor\Emm_V5.h)(0x651F6FFE)
 I (D:\keil 5\ARM\ARMCC\include\stdbool.h)(0x588B8344)
+I (.\User\motor\bsp_motor.h)(0x6529CA7A)
 I (.\User\jy901s\wit_c_sdk.h)(0x650AC200)
 I (D:\keil 5\ARM\ARMCC\include\string.h)(0x588B8344)
 I (.\User\jy901s\REG.h)(0x650AC200)
@@ -1337,3 +1338,42 @@ I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 I (D:\keil 5\ARM\ARMCC\include\stdbool.h)(0x588B8344)
 F (.\User\motor\fifo.h)(0x651E61CA)()
+F (.\User\motor\bsp_motor.C)(0x6666E2CA)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\User\delay -I .\User\Key -I .\User\Led -I .\User\motor -I .\User\usart -I .\User\mpu6050 -I .\User\i2c -I .\User\jy901s-I.\RTE\_Target_1-I"D:\keil 5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-I"D:\keil 5\ARM\CMSIS\Include"-D__UVISION_VERSION="524" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o .\objects\bsp_motor.o --omf_browse .\objects\bsp_motor.crf --depend .\objects\bsp_motor.d)
+I (User\motor\bsp_motor.h)(0x6529CA7A)
+I (.\Start\stm32f10x.h)(0x660F6680)
+I (.\Start\core_cm3.h)(0x4D523B58)
+I (D:\keil 5\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (.\Start\system_stm32f10x.h)(0x4D783CAA)
+I (.\User\stm32f10x_conf.h)(0x4D99A59E)
+I (.\Library\stm32f10x_adc.h)(0x4D783BB4)
+I (.\Library\stm32f10x_bkp.h)(0x4D783BB4)
+I (.\Library\stm32f10x_can.h)(0x4D783BB4)
+I (.\Library\stm32f10x_cec.h)(0x4D783BB4)
+I (.\Library\stm32f10x_crc.h)(0x4D783BB4)
+I (.\Library\stm32f10x_dac.h)(0x4D783BB4)
+I (.\Library\stm32f10x_dbgmcu.h)(0x4D783BB4)
+I (.\Library\stm32f10x_dma.h)(0x4D783BB4)
+I (.\Library\stm32f10x_exti.h)(0x4D783BB4)
+I (.\Library\stm32f10x_flash.h)(0x4D783BB4)
+I (.\Library\stm32f10x_fsmc.h)(0x4D783BB4)
+I (.\Library\stm32f10x_gpio.h)(0x4D783BB4)
+I (.\Library\stm32f10x_i2c.h)(0x4D783BB4)
+I (.\Library\stm32f10x_iwdg.h)(0x4D783BB4)
+I (.\Library\stm32f10x_pwr.h)(0x4D783BB4)
+I (.\Library\stm32f10x_rcc.h)(0x4D783BB4)
+I (.\Library\stm32f10x_rtc.h)(0x4D783BB4)
+I (.\Library\stm32f10x_sdio.h)(0x4D783BB4)
+I (.\Library\stm32f10x_spi.h)(0x4D783BB4)
+I (.\Library\stm32f10x_tim.h)(0x4D783BB4)
+I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
+I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
+I (.\Library\misc.h)(0x4D783BB4)
+I (.\User\usart\bsp_usart.h)(0x6666B9A0)
+I (D:\keil 5\ARM\ARMCC\include\stdio.h)(0x588B8344)
+I (.\User\Led\bsp_led.h)(0x64F09744)
+I (D:\keil 5\ARM\ARMCC\include\stdlib.h)(0x588B8344)
+I (D:\keil 5\ARM\ARMCC\include\math.h)(0x588B8344)
+I (User\motor\Emm_V5.h)(0x651F6FFE)
+I (D:\keil 5\ARM\ARMCC\include\stdbool.h)(0x588B8344)
+I (.\User\delay\bsp_delay.h)(0x6613C55F)
+F (.\User\motor\bsp_motor.h)(0x6529CA7A)()

@@ -39,6 +39,7 @@
 .\objects\main.o: .\User\mpu6050\inv_mpu.h
 .\objects\main.o: .\User\motor\Emm_V5.h
 .\objects\main.o: D:\keil 5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\main.o: .\User\motor\bsp_motor.h
 .\objects\main.o: .\User\jy901s\wit_c_sdk.h
 .\objects\main.o: D:\keil 5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\main.o: .\User\jy901s\REG.h

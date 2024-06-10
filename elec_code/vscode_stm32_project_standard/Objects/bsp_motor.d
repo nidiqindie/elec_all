@@ -34,3 +34,6 @@
 .\objects\bsp_motor.o: .\User\Led\bsp_led.h
 .\objects\bsp_motor.o: D:\keil 5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\bsp_motor.o: D:\keil 5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\bsp_motor.o: User\motor\Emm_V5.h
+.\objects\bsp_motor.o: D:\keil 5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\bsp_motor.o: .\User\delay\bsp_delay.h
