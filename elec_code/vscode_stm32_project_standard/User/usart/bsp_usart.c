@@ -567,17 +567,17 @@ void Uart4Send(unsigned char *p_data, unsigned int uiSize)
 }
 
 //����3�жϷ�����
-void DEBUG_USART3_IRQHandler(void)
-{
- uint8_t ucTemp;
-	if(USART_GetITStatus(DEBUG_USART3,USART_IT_RXNE)!=RESET)
-	{		
-		ucTemp = USART_ReceiveData(DEBUG_USART3);
-    
-		  
-   USART_SendData(DEBUG_USART3,ucTemp);    
-	}	 
-}
+//void DEBUG_USART3_IRQHandler(void)
+//{
+// uint8_t ucTemp;
+//	if(USART_GetITStatus(DEBUG_USART3,USART_IT_RXNE)!=RESET)
+//	{		
+//		ucTemp = USART_ReceiveData(DEBUG_USART3);
+//    
+//		  
+//   USART_SendData(DEBUG_USART3,ucTemp);    
+//	}	 
+//}
 
 
 void DEBUG_UART4_IRQHandler(void)

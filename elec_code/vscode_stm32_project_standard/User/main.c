@@ -77,14 +77,12 @@ int main(void)
 	// 测试调试串口是否可以和电脑正常通讯。需要测试就定义use_uart_to_pc这个字符串
 	// #ifdef use_uart_to_pc
 
-    move_forward(100, 20, 4);
-    while (1) {
+   move_forward(50, 10, 20);
 
-    }
 	// #endif // DEBUG
     // 使用jy901s，定义一个字符串use_jy901s即可使用
     // 初始化读数据的串口，这里原理图分配的是串口四
-   #ifdef use_jy901s
+  
 	Usart2Init(9600);
     float fAcc[3], fGyro[3], fAngle[3];
     int i;
@@ -116,7 +114,7 @@ int main(void)
             // 	printf("gyro:%.3f %.3f %.3f\r\n", fGyro[0], fGyro[1], fGyro[2]);
             // 	s_cDataUpdate &= ~GYRO_UPDATE;
             // }
-            Delayms(1000);
+          
 			if(s_cDataUpdate & ANGLE_UPDATE)
 			{// fAngle[1], fAngle[2]
 				printf("angle:%.3f\r\n", fAngle[0]);
@@ -124,7 +122,7 @@ int main(void)
 			}
 	    }
     }
-   #endif // DEBUG 
+ 
 }
 
 

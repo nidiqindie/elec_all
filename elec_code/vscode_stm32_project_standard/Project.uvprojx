@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Start;.\Library;.\User;.\System;.\User\delay;.\User\Key;.\User\Led;.\User\motor;.\User\usart;.\User\mpu6050;.\User\i2c;.\User\jy901s</IncludePath>
+              <IncludePath>.\Start;.\Library;.\User;.\System;.\User\delay;.\User\Key;.\User\Led;.\User\motor;.\User\usart;.\User\mpu6050;.\User\i2c;.\User\jy901s;.\User\servo;.\User\serial</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -847,6 +847,26 @@
               <FileName>bsp_motor.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\User\motor\bsp_motor.h</FilePath>
+            </File>
+            <File>
+              <FileName>servo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\servo\servo.c</FilePath>
+            </File>
+            <File>
+              <FileName>servo.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\servo\servo.h</FilePath>
+            </File>
+            <File>
+              <FileName>Serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\User\serial\Serial.c</FilePath>
+            </File>
+            <File>
+              <FileName>Serial.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\User\serial\Serial.h</FilePath>
             </File>
           </Files>
         </Group>

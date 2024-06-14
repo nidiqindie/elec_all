@@ -42,7 +42,7 @@ int speed_allR=100;
 int Angular_mutation_flag=0;
 
 //电机转动方向标志位
-int cw_5,cw_2,cw_3,cw_4;
+int cw_1,cw_2,cw_3,cw_4;
 
 void yaw_run(int16_t target_yaw)
 {
@@ -99,20 +99,20 @@ L_R(50,10);
 //这几个控制运动函数speed表示速度，100速度就行，j表示加速度，圈表示运动多少圈
 void move_forward(uint16_t speed,uint16_t j, float quan)  //speed指每10ms脉冲个数
 {
-cw_5=1;
+cw_1=0;
 cw_2=1;
-cw_3=0;
+cw_3=1;
 cw_4=0;
-Emm_V5_Pos_Control(1, 1, speed-1, j, (int)(3200*quan), 0, 0);
+Emm_V5_Pos_Control(1, 0, speed+1, j, (int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
-Emm_V5_Pos_Control(2, 1, speed-1, j, (int)(3200*quan), 0, 0);
+Emm_V5_Pos_Control(2, 1, speed, j, (int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
-Emm_V5_Pos_Control(3, 0, speed+2, j, (int)(3200*quan), 0, 0);
+Emm_V5_Pos_Control(3, 1, speed+1, j, (int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
-Emm_V5_Pos_Control(4, 0, speed+1, j, (int)(3200*quan), 0, 0);
+Emm_V5_Pos_Control(4, 0, speed, j, (int)(3200*quan), 0, 0);
 	 delay_ms(1);
 
 
@@ -123,17 +123,17 @@ Emm_V5_Pos_Control(4, 0, speed+1, j, (int)(3200*quan), 0, 0);
 void move_backward(uint16_t speed,uint16_t j,float quan)  //speed指每10ms脉冲个数
 {
 
-cw_5=0;
+cw_1=1;
 cw_2=0;
-cw_3=1;
+cw_3=0;
 cw_4=1;
-Emm_V5_Pos_Control(1, 0, speed-1, j,(int)(3200*quan), 0, 0);
+Emm_V5_Pos_Control(1, 1, speed-1, j,(int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
 Emm_V5_Pos_Control(2, 0, speed-1, j, (int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
-Emm_V5_Pos_Control(3, 1, speed+2, j, (int)(3200*quan), 0, 0);
+Emm_V5_Pos_Control(3, 0, speed+2, j, (int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
 Emm_V5_Pos_Control(4, 1, speed+1, j,(int)(3200*quan), 0, 0);
@@ -144,17 +144,17 @@ Emm_V5_Pos_Control(4, 1, speed+1, j,(int)(3200*quan), 0, 0);
 //绝对位置模式
 void move_forward_pos(uint16_t speed,uint16_t j, float quan)  //speed指每10ms脉冲个数
 {
-cw_5=1;
+cw_1=0;
 cw_2=1;
-cw_3=0;
+cw_3=1;
 cw_4=0;
-Emm_V5_Pos_Control(1, 1, speed-1, j, (int)(3200*quan), 1, 0);
+Emm_V5_Pos_Control(1, 0, speed-1, j, (int)(3200*quan), 1, 0);
 	 delay_ms(1);
 	
 Emm_V5_Pos_Control(2, 1, speed-1, j, (int)(3200*quan), 1, 0);
 	 delay_ms(1);
 	
-Emm_V5_Pos_Control(3, 0, speed+2, j, (int)(3200*quan), 1, 0);
+Emm_V5_Pos_Control(3, 1, speed+2, j, (int)(3200*quan), 1, 0);
 	 delay_ms(1);
 	
 Emm_V5_Pos_Control(4, 0, speed+1, j, (int)(3200*quan), 1, 0);
@@ -166,17 +166,17 @@ Emm_V5_Pos_Control(4, 0, speed+1, j, (int)(3200*quan), 1, 0);
 void move_backward_pos(uint16_t speed,uint16_t j,float quan)  //speed指每10ms脉冲个数
 {
 
-cw_5=0;
+cw_1=1;
 cw_2=0;
-cw_3=1;
+cw_3=0;
 cw_4=1;
-Emm_V5_Pos_Control(1, 0, speed-1, j,(int)(3200*quan), 1, 0);
+Emm_V5_Pos_Control(1, 1, speed-1, j,(int)(3200*quan), 1, 0);
 	 delay_ms(1);
 	
 Emm_V5_Pos_Control(2, 0, speed-1, j, (int)(3200*quan),1, 0);
 	 delay_ms(1);
 	
-Emm_V5_Pos_Control(3, 1, speed+2, j, (int)(3200*quan),1, 0);
+Emm_V5_Pos_Control(3, 0, speed+2, j, (int)(3200*quan),1, 0);
 	 delay_ms(1);
 	
 Emm_V5_Pos_Control(4, 1, speed+1, j,(int)(3200*quan), 1, 0);
@@ -187,7 +187,7 @@ Emm_V5_Pos_Control(4, 1, speed+1, j,(int)(3200*quan), 1, 0);
 //绝对位置模式清零
 void oo(void)
 {
-	Emm_V5_Reset_CurPos_To_Zero(5);
+	Emm_V5_Reset_CurPos_To_Zero(1);
 	delay_ms(1);
 	Emm_V5_Reset_CurPos_To_Zero(2);
 	delay_ms(1);
@@ -205,17 +205,17 @@ void oo(void)
 void move_left(uint16_t speed,uint16_t j,float quan)  //speed指每10ms脉冲个数
 {
 
-cw_5=1;
-cw_2=0;
-cw_3=1;
+cw_1=1;
+cw_2=1;
+cw_3=0;
 cw_4=0;
 Emm_V5_Pos_Control(1, 1, speed, j, (int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
-Emm_V5_Pos_Control(2, 0, speed-1, j, (int)(3200*quan), 0, 0);
+Emm_V5_Pos_Control(2, 1, speed-1, j, (int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
-Emm_V5_Pos_Control(3, 1, speed, j, (int)(3200*quan), 0, 0);
+Emm_V5_Pos_Control(3, 0, speed, j, (int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
 Emm_V5_Pos_Control(4, 0, speed-2, j, (int)(3200*quan), 0, 0);
@@ -226,18 +226,18 @@ Emm_V5_Pos_Control(4, 0, speed-2, j, (int)(3200*quan), 0, 0);
 void move_right(uint16_t speed,uint16_t j,float quan)  //speed指每10ms脉冲个数
 {
 
-cw_5=0;
-cw_2=1;
-cw_3=0;
+cw_1=0;
+cw_2=0;
+cw_3=1;
 cw_4=1;
 
 Emm_V5_Pos_Control(1, 0, speed, j, (int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
-Emm_V5_Pos_Control(2, 1, speed-1, j, (int)(3200*quan), 0, 0);
+Emm_V5_Pos_Control(2, 0, speed-1, j, (int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
-Emm_V5_Pos_Control(3, 0, speed, j, (int)(3200*quan), 0, 0);
+Emm_V5_Pos_Control(3, 1, speed, j, (int)(3200*quan), 0, 0);
 	 delay_ms(1);
 	
 Emm_V5_Pos_Control(4, 1, speed-2, j,(int)(3200*quan), 0, 0);
@@ -274,16 +274,16 @@ Emm_V5_Vel_Control(4, 1, speed+1, j,  0);
 
 void R_R(int speed , int j) //右自转
 {
-Emm_V5_Vel_Control(1, 0, speed-2, j, 0);
+Emm_V5_Vel_Control(1, 0, speed, j, 0);
 	 delay_ms(1);
 	
-Emm_V5_Vel_Control(2, 0, speed-1, j,  0);
+Emm_V5_Vel_Control(2, 0, speed, j,  0);
 	 delay_ms(1);
 	
-Emm_V5_Vel_Control(3, 0, speed+1, j,  0);
+Emm_V5_Vel_Control(3, 0, speed, j,  0);
 	 delay_ms(1);
 	
-Emm_V5_Vel_Control(4, 0, speed+1, j,  0);
+Emm_V5_Vel_Control(4, 0, speed, j,  0);
 	 delay_ms(1);
 
 }
